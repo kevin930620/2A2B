@@ -1,0 +1,220 @@
+#include<iostream>
+#include<cstdlib>
+#include <ctime>
+#include <string>
+using namespace std;
+//數字不重複
+void numb(){
+    int y[4],angry=0;
+    int compare1[10]={0};
+    int i,l,r;
+    int judge=0,times;
+    int re=0;
+    char hard;
+
+    for(i=0;i<4;i++){
+        r=rand()%10;
+        if(compare1[r] != 0){
+            i--;	
+        }
+        else{
+        compare1[r]++;
+        y[i]=r;	
+        }	  
+    }//答案數字重複判斷
+    for(i=0;i<4;i++){
+        cout<<y[i];
+    }
+    cout<<"\n";
+    //顯示答案數字 
+    cout<<"等等，要提高難度嗎?是請輸入Y/不是請輸入N\n";
+    cin>>hard;
+    if(hard == 'Y'|| hard == 'y'){
+        cout<<"要限制輸入幾次呢?\n";
+        cin>>times;
+    }
+    else if(hard == 'N'|| hard == 'n'){
+        cout<<"好的，玩得愉快 :D \n";
+    }
+    cout <<"請開始輸入\n"; 
+    int num=0;  //計算輸入失誤次數
+    while(judge==0){
+        int a,ansA=0,ansB=0;
+        int pas[4];
+        int compare2[10]={0},read;
+        int g,shout=0;
+
+        cin>>a;
+        if(a/10000 != 0){
+            num++;
+            cout<<"只能輸入四個數，犯規醜"<<num<<"\n";    
+            times++;
+            if(num == 5){
+                cout<<"犯規五次，請進行下場遊戲\n";
+                judge++;
+                break;
+            }
+        }//輸入數字多餘4位判斷
+        for(i=3;i>=0;i--){
+            read=a%10;
+            a=a/10;
+            pas[i]=read;       
+            compare2[read]++;   
+        }//輸入數字轉陣列
+        for(i=0;i<10;i++){
+            if(compare1[i] <= compare2[i]){
+                ansB=ansB+compare1[i];
+            }
+            else if(compare1[i]>compare2[i]){
+                ansB=ansB+compare2[i];
+            }
+        }//比對正確數量
+        for(i=0;i<4;i++){
+            if(pas[i] == y[i]){
+                ansB--;
+                ansA++;
+            }    
+        }//進一步比對正確位置
+        cout<<"A: "<<ansA<<"    B:   "<<ansB<<"\n";
+        if(ansA==4){
+            cout <<"恭喜猜出數字\n";
+            judge++;
+            break;
+        }
+        else if(times != 1){
+            cout<<"請繼續\n";
+        }
+        if(hard=='Y'||hard=='y'){
+            times--;    
+            if(times == 0){ 
+                cout<<"GG you lose\n";
+                cout<<"正解為:\n";
+                for(i=0;i<4;i++){
+                    cout<<y[i];
+                }//顯示答案數字
+                judge++;
+            }
+            else{
+            cout<<"還有"<<times<<"次\n";
+            }	
+        }//判斷剩餘輸入次數
+    }
+}
+//數字重複
+void numbs(){
+    int y[4];
+    int compare1[10]={0};
+    int i,l,r;
+    int judge=0,times=0;
+    char  hard;
+    for(i=0;i<4;i++){
+        r=rand()%10;
+        y[i]=r;	
+		compare1[r]++;	
+        
+    }//抽出數字 
+    for(i=0;i<4;i++){
+        cout<<y[i];
+    }//顯示答案數字 
+    cout<<"\n";
+    cout<<"\n";
+    cout<<"等等，要提高難度嗎?是請輸入Y/不是請輸入N\n";
+    cin>>hard;
+    if(hard == 'Y' || hard =='y'){
+        cout<<"要限制輸入幾次呢?\n";
+        cin>>times;
+    }
+    else if(hard == 'N' || hard == 'n'){
+        cout<<"好的，玩得愉快 :D \n";
+    }
+    cout <<"請開始輸入\n";
+    int num=0;  
+    while(judge==0){
+        int a,ansA=0,ansB=0;
+        int pas[4];
+        int compare2[10]={0},read;
+        cin>>a;
+        if(a/10000 != 0){
+            num++;
+            cout<<"只能輸入四個數，犯規醜"<<num<<"\n";
+            times++;    
+            if(num == 5){
+                cout<<"犯規五次，請進行下場遊戲\n";
+                judge++;
+            }
+        }//判斷輸入 
+        for(i=3;i>=0;i--){
+            read=a%10;
+            a=a/10;
+            pas[i]=read;	
+			compare2[read]++;			
+        }//輸入數字轉陣列
+        for(i=0;i<10;i++){
+            if(compare1[i] <= compare2[i]){
+                ansB=ansB+compare1[i];
+            }
+            else if(compare1[i]>compare2[i]){
+                ansB=ansB+compare2[i];
+            }
+        }//比對正確數量
+        for(i=0;i<4;i++){
+        	if(pas[i] == y[i]){
+                ansB--;
+                ansA++;    
+            }
+        }//近一步比對正確位置數量
+       	cout<<"A: "<<ansA<<"    B:   "<<ansB<<"\n";
+    	if(ansA==4){
+            cout <<"恭喜猜出數字\n";
+            judge++;
+            break;
+        }
+        else if(times != 1){
+            cout<<"請繼續\n";
+        }
+        if(hard=='Y' || hard=='y'){
+	        times--; 
+	        if(times == 0){
+	            cout<<"GG you lose\n";
+                cout<<"正解為:\n";
+                for(i=0;i<4;i++){
+                    cout<<y[i];
+                }//顯示答案數字
+	            judge++;
+	        }
+	        else{
+	        	cout<<"還有"<<times<<"次\n";
+			}	
+		}//判斷剩餘輸入次數
+    } 
+}
+//主程式
+int main(){
+	int y[4],more=0,choose,game=1;
+    cout<<"歡迎遊玩2A2B\n";
+    cout<<"A代表數字、位置皆為正確\n"<<"B代表僅為數字正確但位置不正確\n";
+	cout<<"輸入範例\n"<<"1234\n";
+	cout<<"開始遊玩\n";
+    cout<<"共四碼\n";
+    srand(time(NULL));
+    while(more==0){
+    	cout<<"choose mode:\n";
+		cout<<"數字重複請輸入:1      數字不重複請輸入:2\n";
+		cin>>choose;
+    	cout<<"ROUND"<<game<<"\n";
+        if(choose == 1){
+            cout<<"規則:猜出四個數字的順序，注意!數字可能會有所重複。\n"; 
+			numbs();
+        }
+        else if(choose == 2){
+            cout<<"規則:猜出四個數字的順序，數字並不會有所重複，因此會有四個數字\n";
+			numb();
+        }
+        cout<<"\n"<<"\n";
+        cout<<"繼續請輸入0,結束請輸入1\n";
+        cin>>more;
+        game++;
+        cout<<"\n"<<"\n"<<"\n"<<"\n"<<"\n";
+    }
+    cout<<"感謝遊玩OwO\n";
+    return 0;
